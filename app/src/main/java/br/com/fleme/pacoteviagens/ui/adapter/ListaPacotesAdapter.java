@@ -12,7 +12,11 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.fleme.pacoteviagens.R;
 import br.com.fleme.pacoteviagens.model.Pacote;
@@ -59,10 +63,20 @@ public class ListaPacotesAdapter extends BaseAdapter {
         imagem.setImageDrawable(drawable);
 
         TextView dias = viewCriada.findViewById(R.id.item_pacote_dias);
-        dias.setText(pacote.getDias() + " dias");
+        String diasEmTexto = "";
+        int quantidadeDias = pacote.getDias();
+        if(quantidadeDias > 1) {
+            diasEmTexto = quantidadeDias + " dias";
+        } else {
+            diasEmTexto = quantidadeDias + " dia";
+        }
+        dias.setText(diasEmTexto);
 
         TextView preco = viewCriada.findViewById(R.id.item_pacote_preco);
-        preco.setText("R$ " + pacote.getPreco().toString());
+        BigDecimal precoPacote = pacote.getPreco();
+        NumberFormat formatoBrasileiro = DecimalFormat.getCurrencyInstance(new Locale("pt", "br"));
+        String valorFormatado = formatoBrasileiro.format(precoPacote).replace("R$", "R$ ");
+        preco.setText(valorFormatado);
 
         return viewCriada;
     }
