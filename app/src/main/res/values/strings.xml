@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Pacote Viagens</string>
+    <string name="banner_inicial_dos_pacotes_de_viagem">Banner inicial dos pacotes de viagem</string>
+    <string name="especiais">Especiais</string>
+    <string name="brasil">Brasil</string>
+    <string name="imagem_do_local_do_pacote">Imagem do local do pacote</string>
 </resources>
