@@ -14,18 +14,32 @@ import br.com.fleme.pacoteviagens.ui.adapter.ListaPacotesAdapter;
 
 public class ListaPacotesActivity extends AppCompatActivity {
 
+    public static final String TITULO_APPBAR = "Pacotes";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pacotes);
+        
+        setTitle(TITULO_APPBAR);
+        
+        //Ctrl+Alt+F >> extrai valor como variavel
+        //Ctrl+Alt+C >> extrai valor como constante
 
-        setTitle("Pacotes");
 
-        ListView listaDePacotes = findViewById(R.id.lista_pacotes_listview);
+        configuraLista();
 
-        List<Pacote> pacotes = new PacoteDAO().lista();
+        //Ctrl+Alt+M >> extrai método
 
-        listaDePacotes.setAdapter(new ListaPacotesAdapter(pacotes, this));
+        //Alt+Shift+F10 >> Run
+        //Shift+F10 >> Run
 
     }
+
+    private void configuraLista() {
+        ListView listaDePacotes = findViewById(R.id.lista_pacotes_listview);
+        List<Pacote> pacotes = new PacoteDAO().lista();
+        listaDePacotes.setAdapter(new ListaPacotesAdapter(pacotes, this));
+    }
+
 }

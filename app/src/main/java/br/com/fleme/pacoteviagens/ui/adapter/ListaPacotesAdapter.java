@@ -10,8 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -24,7 +22,7 @@ import br.com.fleme.pacoteviagens.model.Pacote;
 public class ListaPacotesAdapter extends BaseAdapter {
 
     private final List<Pacote> pacotes;
-    private Context context;
+    private final Context context;
 
     public ListaPacotesAdapter(List<Pacote> pacotes, Context context) {
         this.pacotes = pacotes;
@@ -53,15 +51,24 @@ public class ListaPacotesAdapter extends BaseAdapter {
 
         Pacote pacote = pacotes.get(posicao);
 
-        TextView local = viewCriada.findViewById(R.id.item_pacote_local);
-        local.setText(pacote.getLocal());
+        mostraLocal(viewCriada, pacote);
+        mostraImagem(viewCriada, pacote);
+        mostraDias(viewCriada, pacote);
+        mostraPreco(viewCriada, pacote);
 
-        ImageView imagem = viewCriada.findViewById(R.id.item_pacote_imagem);
-        Resources resources = context.getResources();
-        int idDrawable = resources.getIdentifier(pacote.getImagem(), "drawable", context.getPackageName());
-        Drawable drawable = resources.getDrawable(idDrawable);
-        imagem.setImageDrawable(drawable);
+        return viewCriada;
 
+    }
+
+    private void mostraPreco(View viewCriada, Pacote pacote) {
+        TextView preco = viewCriada.findViewById(R.id.item_pacote_preco);
+        BigDecimal precoPacote = pacote.getPreco();
+        NumberFormat formatoBrasileiro = DecimalFormat.getCurrencyInstance(new Locale("pt", "br"));
+        String valorFormatado = formatoBrasileiro.format(precoPacote).replace("R$", "R$ ");
+        preco.setText(valorFormatado);
+    }
+
+    private void mostraDias(View viewCriada, Pacote pacote) {
         TextView dias = viewCriada.findViewById(R.id.item_pacote_dias);
         String diasEmTexto = "";
         int quantidadeDias = pacote.getDias();
@@ -71,14 +78,19 @@ public class ListaPacotesAdapter extends BaseAdapter {
             diasEmTexto = quantidadeDias + " dia";
         }
         dias.setText(diasEmTexto);
+    }
 
-        TextView preco = viewCriada.findViewById(R.id.item_pacote_preco);
-        BigDecimal precoPacote = pacote.getPreco();
-        NumberFormat formatoBrasileiro = DecimalFormat.getCurrencyInstance(new Locale("pt", "br"));
-        String valorFormatado = formatoBrasileiro.format(precoPacote).replace("R$", "R$ ");
-        preco.setText(valorFormatado);
+    private void mostraImagem(View viewCriada, Pacote pacote) {
+        ImageView imagem = viewCriada.findViewById(R.id.item_pacote_imagem);
+        Resources resources = context.getResources();
+        int idDrawable = resources.getIdentifier(pacote.getImagem(), "drawable", context.getPackageName());
+        Drawable drawable = resources.getDrawable(idDrawable);
+        imagem.setImageDrawable(drawable);
+    }
 
-        return viewCriada;
+    private void mostraLocal(View viewCriada, Pacote pacote) {
+        TextView local = viewCriada.findViewById(R.id.item_pacote_local);
+        local.setText(pacote.getLocal());
     }
 
 }
