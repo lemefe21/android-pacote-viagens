@@ -1,5 +1,6 @@
 package br.com.fleme.pacoteviagens.ui.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,9 @@ public class ListaPacotesActivity extends AppCompatActivity {
 
         //Alt+Shift+F10 >> Run
         //Shift+F10 >> Run
+
+        Intent intent = new Intent(this, ResumoPacoteActivity.class);
+        startActivity(intent);
 
     }
 
