@@ -100,6 +100,7 @@
         android:layout_height="wrap_content"
         android:hint="Nome no cartão"
         android:inputType="text"
+        android:digits="abcdefghijklmnopqrstuvwxyzçABCDEFGHIJKLMNOPQRSTUVWXYZÇ "
         app:layout_constraintTop_toBottomOf="@id/pagamento_cvc_cartao"
         app:layout_constraintStart_toStartOf="@id/pagamento_mes_cartao"
         app:layout_constraintEnd_toEndOf="@id/pagamento_cvc_cartao"/>
