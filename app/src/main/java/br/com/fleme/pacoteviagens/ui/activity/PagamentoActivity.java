@@ -1,11 +1,9 @@
 package br.com.fleme.pacoteviagens.ui.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.math.BigDecimal;
 
 import br.com.fleme.pacoteviagens.R;
@@ -27,6 +25,9 @@ public class PagamentoActivity extends AppCompatActivity {
         Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp", 2, new BigDecimal("243.99"));
 
         mostraPreco(pacoteSaoPaulo);
+
+        Intent intent = new Intent(this, ResumoCompraActivity.class);
+        startActivity(intent);
 
     }
 
