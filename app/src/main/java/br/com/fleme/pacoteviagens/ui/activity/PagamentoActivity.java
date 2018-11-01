@@ -3,6 +3,8 @@ package br.com.fleme.pacoteviagens.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import java.math.BigDecimal;
 
@@ -26,8 +28,17 @@ public class PagamentoActivity extends AppCompatActivity {
 
         mostraPreco(pacoteSaoPaulo);
 
-        Intent intent = new Intent(this, ResumoCompraActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, ResumoCompraActivity.class);
+        //startActivity(intent);
+
+        Button botaoFinalizaCompra = findViewById(R.id.pagamento_btn_finaliza_compra);
+        botaoFinalizaCompra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PagamentoActivity.this, ResumoCompraActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
