@@ -1,12 +1,11 @@
 package br.com.fleme.pacoteviagens.ui.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.math.BigDecimal;
 
 import br.com.fleme.pacoteviagens.R;
 import br.com.fleme.pacoteviagens.model.Pacote;
@@ -26,15 +25,29 @@ public class ResumoCompraActivity extends AppCompatActivity {
         setTitle(TITULO_APPBAR);
 
         //utilizado para exemplo
-        Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp", 2, new BigDecimal("243.99"));
+        //Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp", 2, new BigDecimal("243.99"));
 
-        mostraLocal(pacoteSaoPaulo);
+        Intent intent = getIntent();
+        if(intent.hasExtra("pacote")) {
 
-        mostraImagem(pacoteSaoPaulo);
+            Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
 
-        mostraPeriodo(pacoteSaoPaulo);
+            mostraLocal(pacote);
+            mostraImagem(pacote);
+            mostraPeriodo(pacote);
+            mostraPreco(pacote);
 
-        mostraPreco(pacoteSaoPaulo);
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(this, ListaPacotesActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
 
     }
 

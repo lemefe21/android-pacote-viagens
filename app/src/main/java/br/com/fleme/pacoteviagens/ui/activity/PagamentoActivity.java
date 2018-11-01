@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import java.math.BigDecimal;
 
 import br.com.fleme.pacoteviagens.R;
 import br.com.fleme.pacoteviagens.model.Pacote;
@@ -24,21 +23,28 @@ public class PagamentoActivity extends AppCompatActivity {
         setTitle(PAGAMENTO);
 
         //utilizado para exemplo
-        Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp", 2, new BigDecimal("243.99"));
+        //Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp", 2, new BigDecimal("243.99"));
 
-        mostraPreco(pacoteSaoPaulo);
+        Intent intent = getIntent();
+        if(intent.hasExtra("pacote")) {
 
-        //Intent intent = new Intent(this, ResumoCompraActivity.class);
-        //startActivity(intent);
+            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
 
-        Button botaoFinalizaCompra = findViewById(R.id.pagamento_btn_finaliza_compra);
-        botaoFinalizaCompra.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PagamentoActivity.this, ResumoCompraActivity.class);
-                startActivity(intent);
-            }
-        });
+            mostraPreco(pacote);
+
+            //Intent intent = new Intent(this, ResumoCompraActivity.class);
+            //startActivity(intent);
+
+            Button botaoFinalizaCompra = findViewById(R.id.pagamento_btn_finaliza_compra);
+            botaoFinalizaCompra.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(PagamentoActivity.this, ResumoCompraActivity.class);
+                    intent.putExtra("pacote", pacote);
+                    startActivity(intent);
+                }
+            });
+        }
 
     }
 
