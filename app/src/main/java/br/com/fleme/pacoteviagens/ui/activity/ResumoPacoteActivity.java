@@ -16,6 +16,8 @@ import br.com.fleme.pacoteviagens.util.DiasUtil;
 import br.com.fleme.pacoteviagens.util.MoedaUtil;
 import br.com.fleme.pacoteviagens.util.ResourceUtil;
 
+import static br.com.fleme.pacoteviagens.ui.interfaces.PacoteActivityConstantes.CHAVE_PACOTE;
+
 public class ResumoPacoteActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Resumo do pacote";
@@ -30,33 +32,49 @@ public class ResumoPacoteActivity extends AppCompatActivity {
         //utilizado para exemplo
         //Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp", 2, new BigDecimal("243.99"));
 
+        carregaPacoteRecebido();
+
+    }
+
+    private void carregaPacoteRecebido() {
         Intent intent = getIntent();
 
-        if(intent.hasExtra("pacote")) {
+        if(intent.hasExtra(CHAVE_PACOTE)) {
 
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
 
-            //processo de bind
-            mostraImagem(pacote);
-            mostraLocal(pacote);
-            mostraDias(pacote);
-            mostraPreco(pacote);
-            mostraData(pacote);
+            inicializaCampos(pacote);
 
             //Intent intent = new Intent(this, PagamentoActivity.class);
             //startActivity(intent);
 
-            Button botaoRealizaPagamento = findViewById(R.id.resumo_pacote_btn_pagamento);
-            botaoRealizaPagamento.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(ResumoPacoteActivity.this, PagamentoActivity.class);
-                    intent.putExtra("pacote", pacote);
-                    startActivity(intent);
-                }
-            });
+            configuraBotao(pacote);
         }
+    }
 
+    private void configuraBotao(final Pacote pacote) {
+        Button botaoRealizaPagamento = findViewById(R.id.resumo_pacote_btn_pagamento);
+        botaoRealizaPagamento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vaiParaPagamento(pacote);
+            }
+        });
+    }
+
+    private void vaiParaPagamento(Pacote pacote) {
+        Intent intent = new Intent(ResumoPacoteActivity.this, PagamentoActivity.class);
+        intent.putExtra(CHAVE_PACOTE, pacote);
+        startActivity(intent);
+    }
+
+    private void inicializaCampos(Pacote pacote) {
+        //processo de bind
+        mostraImagem(pacote);
+        mostraLocal(pacote);
+        mostraDias(pacote);
+        mostraPreco(pacote);
+        mostraData(pacote);
     }
 
     private void mostraData(Pacote pacote) {

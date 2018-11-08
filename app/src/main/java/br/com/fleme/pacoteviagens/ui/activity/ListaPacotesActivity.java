@@ -14,6 +14,8 @@ import br.com.fleme.pacoteviagens.dao.PacoteDAO;
 import br.com.fleme.pacoteviagens.model.Pacote;
 import br.com.fleme.pacoteviagens.ui.adapter.ListaPacotesAdapter;
 
+import static br.com.fleme.pacoteviagens.ui.interfaces.PacoteActivityConstantes.CHAVE_PACOTE;
+
 public class ListaPacotesActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Pacotes";
@@ -50,14 +52,18 @@ public class ListaPacotesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Pacote pacoteClicado = pacotes.get(position);
+                vaiParaResumoPacote(position, pacotes);
 
-                Intent intent = new Intent(ListaPacotesActivity.this, ResumoPacoteActivity.class);
-                intent.putExtra("pacote",pacoteClicado);
-                startActivity(intent);
             }
         });
 
+    }
+
+    private void vaiParaResumoPacote(int position, List<Pacote> pacotes) {
+        Pacote pacoteClicado = pacotes.get(position);
+        Intent intent = new Intent(ListaPacotesActivity.this, ResumoPacoteActivity.class);
+        intent.putExtra(CHAVE_PACOTE,pacoteClicado);
+        startActivity(intent);
     }
 
 }

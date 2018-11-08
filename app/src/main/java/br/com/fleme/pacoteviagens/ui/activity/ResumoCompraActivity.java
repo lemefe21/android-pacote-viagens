@@ -13,6 +13,8 @@ import br.com.fleme.pacoteviagens.util.DataUtil;
 import br.com.fleme.pacoteviagens.util.MoedaUtil;
 import br.com.fleme.pacoteviagens.util.ResourceUtil;
 
+import static br.com.fleme.pacoteviagens.ui.interfaces.PacoteActivityConstantes.CHAVE_PACOTE;
+
 public class ResumoCompraActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Resumo da compra";
@@ -27,18 +29,26 @@ public class ResumoCompraActivity extends AppCompatActivity {
         //utilizado para exemplo
         //Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp", 2, new BigDecimal("243.99"));
 
+        carregaPacoteRecebido();
+
+    }
+
+    private void carregaPacoteRecebido() {
         Intent intent = getIntent();
-        if(intent.hasExtra("pacote")) {
+        if(intent.hasExtra(CHAVE_PACOTE)) {
 
-            Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+            Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
 
-            mostraLocal(pacote);
-            mostraImagem(pacote);
-            mostraPeriodo(pacote);
-            mostraPreco(pacote);
+            inicializaCampos(pacote);
 
         }
+    }
 
+    private void inicializaCampos(Pacote pacote) {
+        mostraLocal(pacote);
+        mostraImagem(pacote);
+        mostraPeriodo(pacote);
+        mostraPreco(pacote);
     }
 
     @Override
